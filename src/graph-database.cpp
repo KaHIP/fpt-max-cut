@@ -15,6 +15,7 @@ GraphDatabase::GraphDatabase(InputParser& input) {
         main_seed = stoi(input.getCmdOption("-seed"));
     }
 
+#ifdef USE_KAGEN
     if (input.cmdOptionExists("-sample-kagen")) {
         cout << "Sample kagen mode activated" << endl;
         graphs_per_type = stoi(input.getCmdOption("-sample-kagen"));
@@ -29,7 +30,7 @@ GraphDatabase::GraphDatabase(InputParser& input) {
             double c2 = x2.num_edges != 0 ? x2.num_nodes / (double)x2.num_edges : 1e9;
             return c1 > c2;
         };
-        
+
 
         for (int i = 0; i < graphs_per_type * (int)kKagenTypeListing.size(); ++i) {
             KagenGraphCollectionDescriptor::Type type =  kKagenTypeListing[i / graphs_per_type];
@@ -41,7 +42,9 @@ GraphDatabase::GraphDatabase(InputParser& input) {
         sort(all_kagen_sets_to_evaluate.begin(), all_kagen_sets_to_evaluate.end(), is_smaller);
         all_sets_to_evaluate.resize(all_kagen_sets_to_evaluate.size());
 
-    } else if (input.cmdOptionExists("-f")) {
+    } else
+#endif
+    if (input.cmdOptionExists("-f")) {
         const string data_filepath = input.getCmdOption("-f");
         all_sets_to_evaluate.push_back(data_filepath);
     } else if (input.cmdOptionExists("-fdir") || input.cmdOptionExists("-disk-suite")) {
@@ -79,6 +82,7 @@ MaxCutGraph GraphDatabase::GetGraphByFile(const string& key) const {
 }
 
 MaxCutGraph GraphDatabase::GetGraphById(const long id) const {
+#ifdef USE_KAGEN
     if (graph_generation_mode == GraphGenerationMode::KagenSampling) {
         auto elist = all_kagen_sets_to_evaluate.at(id).GenerateEdgeList();
         MaxCutGraph ret(elist);
@@ -88,12 +92,14 @@ MaxCutGraph GraphDatabase::GetGraphById(const long id) const {
         OutputDebugLog("Returned a graph with following generation params: " + all_kagen_sets_to_evaluate.at(id).SerializeGenParams());
 
         return ret;
-    } else {
+    } else
+#endif
+    {
         return MaxCutGraph(all_sets_to_evaluate[id]);
     }
 }
 
-
+#ifdef USE_KAGEN
 const vector<GraphDatabase::KagenGraphCollectionDescriptor::Type> GraphDatabase::kKagenTypeListing {
     KagenGraphCollectionDescriptor::Type::BA,
     KagenGraphCollectionDescriptor::Type::GNM,
@@ -132,3 +138,4 @@ int GraphDatabase::KagenGraphCollectionDescriptor::rhg_hi_avg_vertex_deg = -1;
 bool GraphDatabase::KagenGraphCollectionDescriptor::use_weights = false;
 int GraphDatabase::KagenGraphCollectionDescriptor::edge_weight_lo = 1;
 int GraphDatabase::KagenGraphCollectionDescriptor::edge_weight_hi = 1;
+#endif // USE_KAGEN

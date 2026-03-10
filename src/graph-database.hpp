@@ -4,14 +4,16 @@
 #include <cassert>
 #include <random>
 
+#ifdef USE_KAGEN
 #include <test-generators/KaGen/interface/kagen_interface.h>
+using namespace kagen;
+#endif
 
 #include "mc-graph.hpp"
 #include "utils.hpp"
 #include "input-parser.hpp"
 
 using namespace std;
-using namespace kagen;
 
 class InputParser;
 class MaxCutGraph;
@@ -51,10 +53,13 @@ const map<string, vector<string>> disk_suites = {
 class GraphDatabase{
 public:
     enum class GraphGenerationMode {
+#ifdef USE_KAGEN
         KagenSampling,
+#endif
         SelectedThesisTests
     };
-    
+
+#ifdef USE_KAGEN
     struct KagenGraphCollectionDescriptor{
         enum class Type {
             BA, GNM, RGG2D, RGG3D, RHG
@@ -242,7 +247,8 @@ public:
             return kKagenNaming.at(graph_type) + "-" + out.str() + "." + to_string(num_nodes) + "." + to_string(num_edges_lo) + "-" + to_string(num_edges_hi) + "." + to_string(sel_seed);
         }
     };
-    
+#endif // USE_KAGEN
+
     class iterator
     {
         const GraphDatabase& graph_db;
@@ -282,7 +288,9 @@ public:
 
 private:
     vector<string> all_sets_to_evaluate;
+#ifdef USE_KAGEN
     vector<KagenGraphCollectionDescriptor> all_kagen_sets_to_evaluate;
+#endif
 
     GraphGenerationMode graph_generation_mode = GraphGenerationMode::SelectedThesisTests;
 
@@ -290,5 +298,7 @@ private:
 
     int main_seed = 0;
 
+#ifdef USE_KAGEN
     static const vector<KagenGraphCollectionDescriptor::Type> kKagenTypeListing;
+#endif
 };

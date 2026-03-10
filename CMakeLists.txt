@@ -30,7 +30,11 @@ message("")
 
 #### BASIC SETTINGS ############################################################
 
-add_subdirectory(./test-generators/KaGen/)
+option(USE_KAGEN "Build with KaGen graph generator support" ON)
+
+if(USE_KAGEN)
+  add_subdirectory(./test-generators/KaGen/)
+endif()
 include_directories(. ${CMAKE_CURRENT_SOURCE_DIR}/solvers/MQLib/include)
 include_directories(. /software/localsolver/localsolver_8_0/include)
 include_directories(. /opt/localsolver_7_5/include)
@@ -44,6 +48,7 @@ set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++17 -O3 -g -fopenmp")
 set(CMAKE_THREAD_PREFER_PTHREAD TRUE)
 set(THREADS_PREFER_PTHREAD_FLAG TRUE)
 find_package(Threads REQUIRED)
+find_package(MPI REQUIRED)
 
 message("BUILD TYPE: ${CMAKE_BUILD_TYPE}")
 
@@ -62,10 +67,18 @@ if (${LOCALSOLVER_ENABLED})
     find_library(LOCALSOLVER localsolver PATHS /software/localsolver/localsolver_8_0/bin /opt/localsolver_7_5/bin /opt/localsolver_8_5/bin ${LOCALSOLVER_BIN_PATH})
 endif()
 
-set(TARGET_LIBS Threads::Threads ${MQLIB} generators)
+if(USE_KAGEN)
+  set(TARGET_LIBS Threads::Threads ${MQLIB} generators MPI::MPI_CXX)
+else()
+  set(TARGET_LIBS Threads::Threads ${MQLIB} MPI::MPI_CXX)
+endif()
 
 if (${LOCALSOLVER_ENABLED})
-    set(TARGET_LIBS Threads::Threads ${LOCALSOLVER} ${MQLIB} generators)
+    if(USE_KAGEN)
+      set(TARGET_LIBS Threads::Threads ${LOCALSOLVER} ${MQLIB} generators MPI::MPI_CXX)
+    else()
+      set(TARGET_LIBS Threads::Threads ${LOCALSOLVER} ${MQLIB} MPI::MPI_CXX)
+    endif()
 endif()
 
 
@@ -76,6 +89,10 @@ macro(add_binary_exec TARGETNAME DEBUGMODE ENTRYCPP)
     target_compile_definitions(${TARGETNAME} PRIVATE ${DEBUGMODE} ${LOCALSOLVER_FLAG})
 
     target_compile_definitions(${TARGETNAME} PRIVATE PROJECT_BUILD_DIR="${CMAKE_CURRENT_BINARY_DIR}")
+
+    if(USE_KAGEN)
+        target_compile_definitions(${TARGETNAME} PRIVATE USE_KAGEN=1)
+    endif()
 
     if (${LOCALSOLVER_ENABLED})
         target_compile_definitions(${TARGETNAME} PRIVATE LOCALSOLVER_EXISTS=1)

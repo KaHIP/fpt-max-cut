@@ -12,9 +12,14 @@
 #include "src/benchmarks/benchmark-kernelization.hpp"
 #include "src/benchmarks/benchmark-linear-kernel-paper.hpp"
 
+#include <mpi.h>
 #include <thread>
 #include <iostream>
 using namespace std;
+
+#ifndef USE_KAGEN
+typedef int PEID;
+#endif
 
 const bool kMultipleEdgesAreOk = true;
 
@@ -52,7 +57,9 @@ int main(int argc, char **argv){
     InputParser input(argc, argv);
     InitOutputFiles(input);
 
+#ifdef USE_KAGEN
     GraphDatabase::KagenGraphCollectionDescriptor::InitializeParamBounds(input);
+#endif
     GraphDatabase graph_db(input);
     
 
