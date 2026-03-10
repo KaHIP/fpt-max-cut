@@ -44,16 +44,14 @@ git clone --recursive https://github.com/KaHIP/fpt-max-cut.git && cd fpt-max-cut
 
 ```bash
 # Kernelization benchmark on a graph file
-./build/benchmark -action kernelization -f example-graphs/example -iterations 1 -total-allowed-solver-time 10
+./build/fpt_max_cut -action kernelization -f example-graphs/example -iterations 1 -total-allowed-solver-time 10
 
 # Generate random graphs and benchmark kernelization
-./build/benchmark -action kernelization -sample-kagen 16 -num-nodes 64 -num-edges-lo 0 -num-edges-hi 256 -total-allowed-solver-time 1
+./build/fpt_max_cut -action kernelization -sample-kagen 16 -num-nodes 64 -num-edges-lo 0 -num-edges-hi 256 -total-allowed-solver-time 1
 
 # Linear kernel computation
-./build/benchmark -action linear-kernel -f example-graphs/example -iterations 1
+./build/fpt_max_cut -action linear-kernel -f example-graphs/example -iterations 1
 ```
-
-When installed via Homebrew, use `fpt_max_cut` instead of `./build/benchmark`.
 
 Or run the included example script:
 ```bash
@@ -92,7 +90,7 @@ The pipeline:
 ## Command Line Usage
 
 ```
-./build/benchmark [options]
+./build/fpt_max_cut [options]
 ```
 
 ### Core Options

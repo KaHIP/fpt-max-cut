@@ -8,4 +8,4 @@ cd ../../
 mkdir build
 cd build
 cmake ../
-make benchmark
+make fpt_max_cut

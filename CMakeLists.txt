@@ -111,7 +111,7 @@ macro(add_binary_exec TARGETNAME DEBUGMODE ENTRYCPP)
     target_compile_definitions(${TARGETNAME} PRIVATE MQLIB_DATAPATH="${MQLIB_DATA}")
 endmacro(add_binary_exec)
 
-add_binary_exec(benchmark                            NDEBUG  executables/benchmark.cpp)
+add_binary_exec(fpt_max_cut                          NDEBUG  executables/benchmark.cpp)
 add_binary_exec(benchmark-debug                      DEBUG   executables/benchmark.cpp)
 add_binary_exec(test-articulation-and-biconnected    DEBUG   executables/test-articulation-and-biconnected.cpp)
 add_binary_exec(test-graph-functionality             DEBUG   executables/test-graph-functionality.cpp)
