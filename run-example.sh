@@ -15,21 +15,21 @@ experiment_outdir=examples_output/n1024
 echo "running four examples, writing output to examples_output"
 
 mkdir -p $experiment_outdir
-./build/./benchmark -action "kernelization" -iterations 1 -sample-kagen 16 -num-nodes 64 -num-edges-lo 0 -num-edges-hi $((64*4)) -total-allowed-solver-time 1 \
+./build/fpt_max_cut -action "kernelization" -iterations 1 -sample-kagen 16 -num-nodes 64 -num-edges-lo 0 -num-edges-hi $((64*4)) -total-allowed-solver-time 1 \
             -number-of-threads 4  -benchmark-output $experiment_outdir/out > $experiment_outdir/out-exe
 
 experiment_outdir=examples_output/example
 mkdir -p $experiment_outdir
-./build/./benchmark -action "kernelization" -iterations 1 -f ./example-graphs/example -total-allowed-solver-time 1 \
+./build/fpt_max_cut -action "kernelization" -iterations 1 -f ./example-graphs/example -total-allowed-solver-time 1 \
             -number-of-threads 4  -benchmark-output $experiment_outdir/out > $experiment_outdir/out-exe
 
 experiment_outdir=examples_output/example.graph
 mkdir -p $experiment_outdir
-./build/./benchmark -action "kernelization" -iterations 1 -f ./example-graphs/example.graph -total-allowed-solver-time 1 \
+./build/fpt_max_cut -action "kernelization" -iterations 1 -f ./example-graphs/example.graph -total-allowed-solver-time 1 \
             -number-of-threads 4  -benchmark-output $experiment_outdir/out > $experiment_outdir/out-exe
 
 experiment_outdir=examples_output/example.edges
 mkdir -p $experiment_outdir
-./build/./benchmark -action "kernelization" -iterations 1 -f ./example-graphs/example.edges -total-allowed-solver-time 1 \
+./build/fpt_max_cut -action "kernelization" -iterations 1 -f ./example-graphs/example.edges -total-allowed-solver-time 1 \
             -number-of-threads 4  -benchmark-output $experiment_outdir/out > $experiment_outdir/out-exe
 
