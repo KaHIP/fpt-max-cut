@@ -8,6 +8,7 @@ fpt-max-cut
 [![Last Commit](https://img.shields.io/github/last-commit/KaHIP/fpt-max-cut)](https://github.com/KaHIP/fpt-max-cut/commits)
 [![ALENEX 2020](https://img.shields.io/badge/ALENEX'20-10.1137/1.9781611976007.3-blue)](https://doi.org/10.1137/1.9781611976007.3)
 [![arXiv](https://img.shields.io/badge/arXiv-1905.10902-b31b1b.svg)](https://arxiv.org/abs/1905.10902)
+[![Homebrew](https://img.shields.io/badge/homebrew-available-orange)](https://github.com/KaHIP/homebrew-kahip)
 [![Heidelberg University](https://img.shields.io/badge/Heidelberg-University-c1002a)](https://www.uni-heidelberg.de)
 =====
 
@@ -25,6 +26,12 @@ fpt-max-cut
 | **Requires** | C++17 compiler (GCC 7+), CMake 2.8+, OpenMPI, CGAL, Sparsehash |
 
 ## Quick Start
+
+### Install via Homebrew (Linux only)
+
+```bash
+brew install KaHIP/kahip/fpt-max-cut
+```
 
 ### Build from source
 
@@ -45,6 +52,8 @@ git clone --recursive https://github.com/KaHIP/fpt-max-cut.git && cd fpt-max-cut
 # Linear kernel computation
 ./build/benchmark -action linear-kernel -f example-graphs/example -iterations 1
 ```
+
+When installed via Homebrew, use `fpt_max_cut` instead of `./build/benchmark`.
 
 Or run the included example script:
 ```bash
