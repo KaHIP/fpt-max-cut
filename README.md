@@ -13,7 +13,7 @@ fpt-max-cut
 =====
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/KaHIP/fpt-max-cut/master/logo/fpt-max-cut-banner-v1.png" alt="fpt-max-cut Logo" width="900"/>
+  <img src="https://raw.githubusercontent.com/KaHIP/fpt-max-cut/master/logo/banner.png" alt="fpt-max-cut Logo" width="900"/>
 </p>
 
 **fpt-max-cut** implements FPT-based data reduction rules (kernelization) for the **maximum cut problem** on undirected graphs. Given a graph, the maximum cut problem asks for a partition of the vertices into two sets such that the total weight of edges between the sets is maximized. Part of the [KaHIP](https://github.com/KaHIP) organization.
