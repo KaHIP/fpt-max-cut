@@ -1,0 +1,100 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 260">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#1a1a2e"/>
+      <stop offset="100%" stop-color="#16213e"/>
+    </linearGradient>
+    <radialGradient id="glowL" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0%" stop-color="#66bb6a" stop-opacity="0.12"/>
+      <stop offset="100%" stop-color="#66bb6a" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glowR" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0%" stop-color="#ab47bc" stop-opacity="0.12"/>
+      <stop offset="100%" stop-color="#ab47bc" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="900" height="260" rx="16" fill="url(#bg)"/>
+
+  <!-- Glows -->
+  <ellipse cx="170" cy="120" rx="130" ry="120" fill="url(#glowL)"/>
+  <ellipse cx="330" cy="130" rx="120" ry="110" fill="url(#glowR)"/>
+
+  <!-- Left partition (S) edges -->
+  <line x1="100" y1="70" x2="140" y2="120" stroke="#66bb6a" stroke-width="1.8" opacity="0.45"/>
+  <line x1="100" y1="70" x2="160" y2="60" stroke="#66bb6a" stroke-width="1.8" opacity="0.45"/>
+  <line x1="160" y1="60" x2="140" y2="120" stroke="#66bb6a" stroke-width="1.8" opacity="0.45"/>
+  <line x1="140" y1="120" x2="110" y2="175" stroke="#66bb6a" stroke-width="1.8" opacity="0.45"/>
+  <line x1="100" y1="70" x2="110" y2="175" stroke="#66bb6a" stroke-width="1.8" opacity="0.45"/>
+  <line x1="160" y1="60" x2="200" y2="100" stroke="#66bb6a" stroke-width="1.8" opacity="0.45"/>
+  <line x1="140" y1="120" x2="200" y2="100" stroke="#66bb6a" stroke-width="1.8" opacity="0.45"/>
+  <line x1="110" y1="175" x2="170" y2="185" stroke="#66bb6a" stroke-width="1.8" opacity="0.45"/>
+  <line x1="200" y1="100" x2="170" y2="185" stroke="#66bb6a" stroke-width="1.8" opacity="0.45"/>
+
+  <!-- Right partition (T) edges -->
+  <line x1="300" y1="65" x2="340" y2="110" stroke="#ab47bc" stroke-width="1.8" opacity="0.45"/>
+  <line x1="300" y1="65" x2="360" y2="60" stroke="#ab47bc" stroke-width="1.8" opacity="0.45"/>
+  <line x1="360" y1="60" x2="340" y2="110" stroke="#ab47bc" stroke-width="1.8" opacity="0.45"/>
+  <line x1="340" y1="110" x2="310" y2="170" stroke="#ab47bc" stroke-width="1.8" opacity="0.45"/>
+  <line x1="360" y1="60" x2="370" y2="140" stroke="#ab47bc" stroke-width="1.8" opacity="0.45"/>
+  <line x1="340" y1="110" x2="370" y2="140" stroke="#ab47bc" stroke-width="1.8" opacity="0.45"/>
+  <line x1="310" y1="170" x2="370" y2="140" stroke="#ab47bc" stroke-width="1.8" opacity="0.45"/>
+
+  <!-- Cut edges (bold, highlighted) -->
+  <line x1="200" y1="100" x2="300" y2="65" stroke="#ef5350" stroke-width="2.5" opacity="0.7"/>
+  <line x1="160" y1="60" x2="300" y2="65" stroke="#ef5350" stroke-width="2.5" opacity="0.7"/>
+  <line x1="200" y1="100" x2="340" y2="110" stroke="#ef5350" stroke-width="2.5" opacity="0.7"/>
+  <line x1="170" y1="185" x2="310" y2="170" stroke="#ef5350" stroke-width="2.5" opacity="0.7"/>
+  <line x1="140" y1="120" x2="340" y2="110" stroke="#ef5350" stroke-width="2.5" opacity="0.7"/>
+
+  <!-- Left partition nodes -->
+  <circle cx="100" cy="70" r="9" fill="#66bb6a"/>
+  <circle cx="160" cy="60" r="9" fill="#66bb6a"/>
+  <circle cx="140" cy="120" r="9" fill="#66bb6a"/>
+  <circle cx="200" cy="100" r="9" fill="#66bb6a"/>
+  <circle cx="110" cy="175" r="9" fill="#66bb6a"/>
+  <circle cx="170" cy="185" r="9" fill="#66bb6a"/>
+
+  <!-- Right partition nodes -->
+  <circle cx="300" cy="65" r="9" fill="#ab47bc"/>
+  <circle cx="360" cy="60" r="9" fill="#ab47bc"/>
+  <circle cx="340" cy="110" r="9" fill="#ab47bc"/>
+  <circle cx="370" cy="140" r="9" fill="#ab47bc"/>
+  <circle cx="310" cy="170" r="9" fill="#ab47bc"/>
+
+  <!-- Removed/reduced nodes (ghosted, showing kernelization) -->
+  <circle cx="85" cy="130" r="7" fill="none" stroke="#546e7a" stroke-width="1.5" stroke-dasharray="3,3" opacity="0.4"/>
+  <circle cx="380" cy="95" r="7" fill="none" stroke="#546e7a" stroke-width="1.5" stroke-dasharray="3,3" opacity="0.4"/>
+  <text x="85" y="134" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="8" fill="#546e7a" text-anchor="middle" opacity="0.5">&#x2717;</text>
+  <text x="380" y="99" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="8" fill="#546e7a" text-anchor="middle" opacity="0.5">&#x2717;</text>
+
+  <!-- Title -->
+  <text x="490" y="90" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="48" font-weight="700" fill="#e0e0e0" letter-spacing="2">
+    <tspan fill="#ef5350">fpt</tspan><tspan fill="#546e7a">-</tspan><tspan fill="#e0e0e0">max-cut</tspan>
+  </text>
+
+  <!-- Subtitle -->
+  <text x="493" y="122" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="17" fill="#90a4ae" letter-spacing="0.5">
+    FPT Data Reduction for Maximum Cut
+  </text>
+
+  <!-- Badge: Part of KaHIP -->
+  <rect x="493" y="145" width="130" height="26" rx="13" fill="#263238"/>
+  <text x="558" y="162" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="11" fill="#80cbc4" text-anchor="middle">Part of KaHIP</text>
+
+  <!-- Legend -->
+  <circle cx="500" cy="210" r="5" fill="#66bb6a"/>
+  <text x="512" y="214" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="11" fill="#a0a0a0">S</text>
+  <circle cx="545" cy="210" r="5" fill="#ab47bc"/>
+  <text x="557" y="214" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="11" fill="#a0a0a0">T</text>
+  <line x1="590" y1="210" x2="612" y2="210" stroke="#ef5350" stroke-width="2.5"/>
+  <text x="620" y="214" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="11" fill="#a0a0a0">max cut</text>
+  <circle cx="700" cy="210" r="5" fill="none" stroke="#546e7a" stroke-width="1.2" stroke-dasharray="3,3"/>
+  <text x="712" y="214" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="11" fill="#a0a0a0">reduced</text>
+
+  <!-- Bottom text -->
+  <text x="245" y="245" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="11" fill="#546e7a" text-anchor="middle">
+    kernelization &amp; data reduction for maximum cut
+  </text>
+</svg>
