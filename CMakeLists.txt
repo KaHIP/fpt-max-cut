@@ -36,8 +36,10 @@ include_directories(. /software/localsolver/localsolver_8_0/include)
 include_directories(. /opt/localsolver_7_5/include)
 include_directories(. /opt/localsolver_8_5/include)
 
-set (CMAKE_CXX_COMPILER /usr/bin/g++-7)
-set (CMAKE_CXX_FLAGS "-std=c++1z -msse4.2 -Wall -Wextra -O3 -g -fopenmp")
+if(NOT CMAKE_CXX_COMPILER)
+  set (CMAKE_CXX_COMPILER /usr/bin/g++)
+endif()
+set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++17 -O3 -g -fopenmp")
 
 set(CMAKE_THREAD_PREFER_PTHREAD TRUE)
 set(THREADS_PREFER_PTHREAD_FLAG TRUE)
@@ -60,10 +62,10 @@ if (${LOCALSOLVER_ENABLED})
     find_library(LOCALSOLVER localsolver PATHS /software/localsolver/localsolver_8_0/bin /opt/localsolver_7_5/bin /opt/localsolver_8_5/bin ${LOCALSOLVER_BIN_PATH})
 endif()
 
-set(TARGET_LIBS Threads::Threads -lstdc++fs ${MQLIB} generators)
+set(TARGET_LIBS Threads::Threads ${MQLIB} generators)
 
 if (${LOCALSOLVER_ENABLED})
-    set(TARGET_LIBS Threads::Threads -lstdc++fs ${LOCALSOLVER} ${MQLIB} generators)
+    set(TARGET_LIBS Threads::Threads ${LOCALSOLVER} ${MQLIB} generators)
 endif()
 
 

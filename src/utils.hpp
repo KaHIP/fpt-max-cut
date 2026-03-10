@@ -1,6 +1,6 @@
 #pragma once
 
-#include <experimental/filesystem>
+#include <filesystem>
 #include <unordered_map>
 #include <iostream>
 #include <cmath>
@@ -15,7 +15,7 @@
 #include <array>
 
 using namespace std;
-using namespace std::experimental;
+namespace filesystem = std::filesystem;
 
 #ifndef __FUNCTION_NAME__
     #ifdef WIN32   //WINDOWS
