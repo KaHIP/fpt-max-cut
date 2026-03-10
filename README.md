@@ -3,6 +3,7 @@ fpt-max-cut
 [![C++](https://img.shields.io/badge/C++-17-blue.svg)](https://isocpp.org/)
 [![CMake](https://img.shields.io/badge/CMake-2.8+-064F8C.svg)](https://cmake.org/)
 [![Linux](https://img.shields.io/badge/Linux-supported-success.svg)](https://github.com/KaHIP/fpt-max-cut)
+[![macOS](https://img.shields.io/badge/macOS-supported-success.svg)](https://github.com/KaHIP/fpt-max-cut)
 [![GitHub Stars](https://img.shields.io/github/stars/KaHIP/fpt-max-cut)](https://github.com/KaHIP/fpt-max-cut/stargazers)
 [![GitHub Issues](https://img.shields.io/github/issues/KaHIP/fpt-max-cut)](https://github.com/KaHIP/fpt-max-cut/issues)
 [![Last Commit](https://img.shields.io/github/last-commit/KaHIP/fpt-max-cut)](https://github.com/KaHIP/fpt-max-cut/commits)
@@ -27,7 +28,7 @@ fpt-max-cut
 
 ## Quick Start
 
-### Install via Homebrew (Linux only)
+### Install via Homebrew
 
 ```bash
 brew install KaHIP/kahip/fpt-max-cut
