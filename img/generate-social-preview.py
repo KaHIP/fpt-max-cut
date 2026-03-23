@@ -1,0 +1,150 @@
+#!/usr/bin/env python3
+"""Generate the GitHub social preview image (1280x640) for fpt-max-cut.
+
+Creates social-preview.svg and converts to social-preview.png via Inkscape.
+"""
+
+import os
+import subprocess
+
+DIR = os.path.dirname(os.path.abspath(__file__))
+SVG_PATH = os.path.join(DIR, "social-preview.svg")
+PNG_PATH = os.path.join(DIR, "social-preview.png")
+
+SVG = """\
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="640" viewBox="0 0 1280 640">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#1a1a2e"/>
+      <stop offset="100%" stop-color="#16213e"/>
+    </linearGradient>
+    <radialGradient id="glowL" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0%" stop-color="#66bb6a" stop-opacity="0.10"/>
+      <stop offset="100%" stop-color="#66bb6a" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glowR" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0%" stop-color="#ab47bc" stop-opacity="0.10"/>
+      <stop offset="100%" stop-color="#ab47bc" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1280" height="640" fill="url(#bg)"/>
+
+  <!-- Partition glows -->
+  <ellipse cx="200" cy="320" rx="160" ry="260" fill="url(#glowL)"/>
+  <ellipse cx="480" cy="320" rx="160" ry="260" fill="url(#glowR)"/>
+
+  <!-- Internal S edges (few, dim) -->
+  <line x1="120" y1="100" x2="180" y2="140" stroke="#66bb6a" stroke-width="1.8" opacity="0.30"/>
+  <line x1="160" y1="200" x2="170" y2="280" stroke="#66bb6a" stroke-width="1.8" opacity="0.30"/>
+  <line x1="100" y1="300" x2="140" y2="370" stroke="#66bb6a" stroke-width="1.8" opacity="0.30"/>
+  <line x1="90" y1="440" x2="140" y2="370" stroke="#66bb6a" stroke-width="1.8" opacity="0.30"/>
+
+  <!-- Internal T edges (few, dim) -->
+  <line x1="460" y1="100" x2="440" y2="160" stroke="#ab47bc" stroke-width="1.8" opacity="0.30"/>
+  <line x1="500" y1="200" x2="510" y2="260" stroke="#ab47bc" stroke-width="1.8" opacity="0.30"/>
+  <line x1="530" y1="300" x2="480" y2="370" stroke="#ab47bc" stroke-width="1.8" opacity="0.30"/>
+  <line x1="460" y1="440" x2="480" y2="370" stroke="#ab47bc" stroke-width="1.8" opacity="0.30"/>
+
+  <!-- Cut edges (many, bold red) -->
+  <line x1="120" y1="100" x2="460" y2="100" stroke="#ef5350" stroke-width="2.2" opacity="0.60"/>
+  <line x1="120" y1="100" x2="440" y2="160" stroke="#ef5350" stroke-width="2.2" opacity="0.60"/>
+  <line x1="180" y1="140" x2="460" y2="100" stroke="#ef5350" stroke-width="2.2" opacity="0.60"/>
+  <line x1="180" y1="140" x2="500" y2="200" stroke="#ef5350" stroke-width="2.2" opacity="0.60"/>
+  <line x1="160" y1="200" x2="440" y2="160" stroke="#ef5350" stroke-width="2.2" opacity="0.60"/>
+  <line x1="160" y1="200" x2="500" y2="200" stroke="#ef5350" stroke-width="2.2" opacity="0.60"/>
+  <line x1="160" y1="200" x2="530" y2="300" stroke="#ef5350" stroke-width="2.2" opacity="0.60"/>
+  <line x1="100" y1="300" x2="510" y2="260" stroke="#ef5350" stroke-width="2.2" opacity="0.60"/>
+  <line x1="100" y1="300" x2="530" y2="300" stroke="#ef5350" stroke-width="2.2" opacity="0.60"/>
+  <line x1="170" y1="280" x2="480" y2="370" stroke="#ef5350" stroke-width="2.2" opacity="0.60"/>
+  <line x1="170" y1="280" x2="510" y2="260" stroke="#ef5350" stroke-width="2.2" opacity="0.60"/>
+  <line x1="140" y1="370" x2="480" y2="370" stroke="#ef5350" stroke-width="2.2" opacity="0.60"/>
+  <line x1="140" y1="370" x2="460" y2="440" stroke="#ef5350" stroke-width="2.2" opacity="0.60"/>
+  <line x1="90" y1="440" x2="460" y2="440" stroke="#ef5350" stroke-width="2.2" opacity="0.60"/>
+
+  <!-- S partition nodes -->
+  <circle cx="120" cy="100" r="12" fill="#66bb6a"/>
+  <circle cx="160" cy="200" r="12" fill="#66bb6a"/>
+  <circle cx="100" cy="300" r="12" fill="#66bb6a"/>
+  <circle cx="180" cy="140" r="12" fill="#66bb6a"/>
+  <circle cx="140" cy="370" r="12" fill="#66bb6a"/>
+  <circle cx="170" cy="280" r="12" fill="#66bb6a"/>
+  <circle cx="90"  cy="440" r="12" fill="#66bb6a"/>
+
+  <!-- T partition nodes -->
+  <circle cx="460" cy="100" r="12" fill="#ab47bc"/>
+  <circle cx="500" cy="200" r="12" fill="#ab47bc"/>
+  <circle cx="530" cy="300" r="12" fill="#ab47bc"/>
+  <circle cx="440" cy="160" r="12" fill="#ab47bc"/>
+  <circle cx="480" cy="370" r="12" fill="#ab47bc"/>
+  <circle cx="510" cy="260" r="12" fill="#ab47bc"/>
+  <circle cx="460" cy="440" r="12" fill="#ab47bc"/>
+
+  <!-- Reduced/ghosted nodes (kernelization) -->
+  <circle cx="60"  cy="180" r="9" fill="none" stroke="#546e7a" stroke-width="1.5" stroke-dasharray="4,4" opacity="0.5"/>
+  <text x="60" y="184" font-family="sans-serif" font-size="10" fill="#546e7a" text-anchor="middle" opacity="0.6">&#x2717;</text>
+  <circle cx="55"  cy="400" r="9" fill="none" stroke="#546e7a" stroke-width="1.5" stroke-dasharray="4,4" opacity="0.5"/>
+  <text x="55" y="404" font-family="sans-serif" font-size="10" fill="#546e7a" text-anchor="middle" opacity="0.6">&#x2717;</text>
+  <circle cx="570" cy="150" r="9" fill="none" stroke="#546e7a" stroke-width="1.5" stroke-dasharray="4,4" opacity="0.5"/>
+  <text x="570" y="154" font-family="sans-serif" font-size="10" fill="#546e7a" text-anchor="middle" opacity="0.6">&#x2717;</text>
+  <circle cx="560" cy="400" r="9" fill="none" stroke="#546e7a" stroke-width="1.5" stroke-dasharray="4,4" opacity="0.5"/>
+  <text x="560" y="404" font-family="sans-serif" font-size="10" fill="#546e7a" text-anchor="middle" opacity="0.6">&#x2717;</text>
+
+  <!-- Title -->
+  <text x="700" y="240" font-family="'DejaVu Sans', 'Segoe UI', Helvetica, Arial, sans-serif" font-size="80" font-weight="700">
+    <tspan fill="#ef5350">fpt</tspan><tspan fill="#546e7a">-</tspan><tspan fill="#e0e0e0">max-cut</tspan>
+  </text>
+
+  <!-- Separator -->
+  <line x1="700" y1="265" x2="1220" y2="265" stroke="#3c5070" stroke-width="2"/>
+
+  <!-- Subtitle -->
+  <text x="700" y="305" font-family="'DejaVu Sans', 'Segoe UI', Helvetica, Arial, sans-serif" font-size="28" fill="#90a4ae">
+    FPT Data Reduction for Maximum Cut
+  </text>
+
+  <!-- Tagline -->
+  <text x="700" y="365" font-family="'DejaVu Sans', 'Segoe UI', Helvetica, Arial, sans-serif" font-size="22" fill="#607d8b">
+    Kernelization and data reduction rules
+  </text>
+  <text x="700" y="395" font-family="'DejaVu Sans', 'Segoe UI', Helvetica, Arial, sans-serif" font-size="22" fill="#607d8b">
+    for the maximum cut problem
+  </text>
+
+  <!-- Badge: Part of KaHIP -->
+  <rect x="700" y="435" width="150" height="32" rx="16" fill="#263238"/>
+  <text x="775" y="456" font-family="'DejaVu Sans', 'Segoe UI', Helvetica, Arial, sans-serif" font-size="15" fill="#80cbc4" text-anchor="middle">Part of KaHIP</text>
+
+  <!-- Legend -->
+  <circle cx="710" cy="530" r="7" fill="#66bb6a"/>
+  <text x="724" y="535" font-family="'DejaVu Sans', sans-serif" font-size="16" fill="#a0a0a0">S</text>
+
+  <circle cx="770" cy="530" r="7" fill="#ab47bc"/>
+  <text x="784" y="535" font-family="'DejaVu Sans', sans-serif" font-size="16" fill="#a0a0a0">T</text>
+
+  <line x1="830" y1="530" x2="860" y2="530" stroke="#ef5350" stroke-width="3"/>
+  <text x="870" y="535" font-family="'DejaVu Sans', sans-serif" font-size="16" fill="#a0a0a0">max cut</text>
+
+  <circle cx="980" cy="530" r="6" fill="none" stroke="#546e7a" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <text x="994" y="535" font-family="'DejaVu Sans', sans-serif" font-size="16" fill="#a0a0a0">reduced</text>
+
+  <!-- Bottom tagline -->
+  <text x="310" y="600" font-family="'DejaVu Sans', sans-serif" font-size="16" fill="#546e7a" text-anchor="middle">
+    kernelization &amp; data reduction for maximum cut
+  </text>
+</svg>
+"""
+
+with open(SVG_PATH, "w") as f:
+    f.write(SVG)
+print(f"Saved {SVG_PATH}")
+
+subprocess.run([
+    "inkscape", SVG_PATH,
+    "--export-type=png",
+    f"--export-filename={PNG_PATH}",
+    "--export-width=1280",
+    "--export-height=640",
+], check=True, capture_output=True)
+print(f"Saved {PNG_PATH}")
