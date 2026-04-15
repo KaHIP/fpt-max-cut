@@ -19,6 +19,8 @@ fpt-max-cut
 
 **fpt-max-cut** implements FPT-based data reduction rules (kernelization) for the **maximum cut problem** on undirected graphs. Given a graph, the maximum cut problem asks for a partition of the vertices into two sets such that the total weight of edges between the sets is maximized. Part of the [KaHIP](https://github.com/KaHIP) organization.
 
+> **Python Interface:** An easy-to-use Python interface for this software is available in [CHSZLabLib](https://github.com/CHSZLab/CHSZLabLib).
+
 | | |
 |:--|:--|
 | **What it solves** | Reduce graph size via kernelization while preserving the optimal maximum cut value |
